@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "employees", uniqueConstraints = {
+@Table(name = "employee", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 public class Employee {
@@ -35,14 +35,27 @@ public class Employee {
     @Column(nullable = false)
     private String phone;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
+
+
+    public Employee() {
+    }
+
+    public Employee(String firstName, String lastName, String email, String phone, Department department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.department = department;
+    }
 
 
     public Long getId() {
         return id;
     }
+
 
     public void setId(Long id) {
         this.id = id;
